@@ -10,5 +10,10 @@ public class ApplicantServiceController {
     public String getApplicants(){
         return ("return list of applicants");
     }
+	
+	@RequestMapping("/")
+	String home() {
+		return "Hello welcome to Service Api!";
+	}
 
 }
