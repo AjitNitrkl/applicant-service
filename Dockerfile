@@ -12,4 +12,4 @@ COPY docker_sudo_overwrite.sh /usr/local/bin/docker
 RUN chmod +x /usr/local/bin/docker
 
 # switch back to the jenkins-user
-USER jenkins
+USER admin
