@@ -1,0 +1,32 @@
+node{
+   stage('SCM Checkout'){
+       git credentialsId: 'f0656284-c083-4ab6-882b-3667cfa64912', url: 'https://github.com/AjitNitrkl/applicant-service'
+   }
+   stage('Mvn Package'){
+     def mvnHome = tool name: 'mavenHome', type: 'maven'
+     def mvnCMD = "${mvnHome}/bin/mvn"
+     sh "${mvnCMD} clean package"
+   }
+   
+   stage('Build Docker Image'){
+     sh 'docker build -t ajitnitrkl/applicant-service .'
+   }
+   
+    stage('Push Docker Image'){
+     withCredentials([string(credentialsId: 'docker-hub-pwd', variable: 'dockerHubPwd')])  {
+        sh "docker login -u ajitnitrkl -p ${dockerHubPwd}"
+     }
+     sh 'docker push ajitnitrkl/applicant-service'
+   }
+   
+   stage('Run Container on Dev Server'){
+     def dockerRun = 'docker run -p 8082:8080 -d --name applicant-service ajitnitrkl/applicant-service'
+     sshagent(['dev-server']) {
+       sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-174-40-221.compute-1.amazonaws.com ${dockerRun}"
+     }
+   }
+   
+   
+  
+  
+}
