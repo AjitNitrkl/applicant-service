@@ -31,7 +31,8 @@ Create a new pipeline project
 3.	Eneter the github project as
 https://github.com/AjitNitrkl/applicant-service/
 
-4.	And pipeline script as below 
+4.	And pipeline script as below:
+
 node{
    stage('SCM Checkout'){
        git credentialsId: 'f0656284-c083-4ab6-882b-3667cfa64912', url: 'https://github.com/AjitNitrkl/applicant-service'
@@ -61,6 +62,7 @@ node{
    }
    
 }
+
 
 mavenHome, dockerHome variable names are those name entered in step 2.
 For password of dockerhub use the pieline syntac to generate the script. Use WithCredential: Bind Credential to Variable option and Add as secret text.
