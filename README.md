@@ -33,10 +33,14 @@ https://github.com/AjitNitrkl/applicant-service/
 
 4.	And pipeline script as below:
 
-node{
+
+node
+{
+
    stage('SCM Checkout'){
        git credentialsId: 'f0656284-c083-4ab6-882b-3667cfa64912', url: 'https://github.com/AjitNitrkl/applicant-service'
    }
+
    stage('Mvn Package'){
      def mvnHome = tool name: 'mavenHome', type: 'maven'
      def mvnCMD = "${mvnHome}/bin/mvn"
@@ -62,6 +66,7 @@ node{
    }
    
 }
+
 
 
 mavenHome, dockerHome variable names are those name entered in step 2.
